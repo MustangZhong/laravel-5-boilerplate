@@ -2,9 +2,9 @@
 
 @section ('title', trans('labels.backend.access.users.management'))
 
-@section('after-styles-end')
-    {{ Html::style("css/backend/plugin/datatables/dataTables.bootstrap.min.css") }}
-@stop
+@section('after-styles')
+    {{ Html::style("https://cdn.datatables.net/v/bs/dt-1.10.15/datatables.min.css") }}
+@endsection
 
 @section('page-header')
     <h1>
@@ -19,7 +19,7 @@
             <h3 class="box-title">{{ trans('labels.backend.access.users.active') }}</h3>
 
             <div class="box-tools pull-right">
-                @include('backend.access.includes.partials.header-buttons')
+                @include('backend.access.includes.partials.user-header-buttons')
             </div><!--box-tools pull-right-->
         </div><!-- /.box-header -->
 
@@ -27,16 +27,17 @@
             <div class="table-responsive">
                 <table id="users-table" class="table table-condensed table-hover">
                     <thead>
-                        <tr>
-                            <th>{{ trans('labels.backend.access.users.table.id') }}</th>
-                            <th>{{ trans('labels.backend.access.users.table.name') }}</th>
-                            <th>{{ trans('labels.backend.access.users.table.email') }}</th>
-                            <th>{{ trans('labels.backend.access.users.table.confirmed') }}</th>
-                            <th>{{ trans('labels.backend.access.users.table.roles') }}</th>
-                            <th>{{ trans('labels.backend.access.users.table.created') }}</th>
-                            <th>{{ trans('labels.backend.access.users.table.last_updated') }}</th>
-                            <th>{{ trans('labels.general.actions') }}</th>
-                        </tr>
+                    <tr>
+                        <th>{{ trans('labels.backend.access.users.table.id') }}</th>
+                        <th>{{ trans('labels.backend.access.users.table.first_name') }}</th>
+                        <th>{{ trans('labels.backend.access.users.table.last_name') }}</th>
+                        <th>{{ trans('labels.backend.access.users.table.email') }}</th>
+                        <th>{{ trans('labels.backend.access.users.table.confirmed') }}</th>
+                        <th>{{ trans('labels.backend.access.users.table.roles') }}</th>
+                        <th>{{ trans('labels.backend.access.users.table.created') }}</th>
+                        <th>{{ trans('labels.backend.access.users.table.last_updated') }}</th>
+                        <th>{{ trans('labels.general.actions') }}</th>
+                    </tr>
                     </thead>
                 </table>
             </div><!--table-responsive-->
@@ -54,14 +55,13 @@
             {!! history()->renderType('User') !!}
         </div><!-- /.box-body -->
     </div><!--box box-success-->
-@stop
+@endsection
 
-@section('after-scripts-end')
-    {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
-    {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
+@section('after-scripts')
+    {{ Html::script("https://cdn.datatables.net/v/bs/dt-1.10.15/datatables.min.js") }}
 
     <script>
-        $(function() {
+        $(function () {
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -72,8 +72,9 @@
                 },
                 columns: [
                     {data: 'id', name: '{{config('access.users_table')}}.id'},
-                    {data: 'name', name: '{{config('access.users_table')}}.name', render: $.fn.dataTable.render.text()},
-                    {data: 'email', name: '{{config('access.users_table')}}.email', render: $.fn.dataTable.render.text()},
+                    {data: 'first_name', name: '{{config('access.users_table')}}.first_name'},
+                    {data: 'last_name', name: '{{config('access.users_table')}}.last_name'},
+                    {data: 'email', name: '{{config('access.users_table')}}.email'},
                     {data: 'confirmed', name: '{{config('access.users_table')}}.confirmed'},
                     {data: 'roles', name: '{{config('access.roles_table')}}.name', sortable: false},
                     {data: 'created_at', name: '{{config('access.users_table')}}.created_at'},
@@ -85,4 +86,4 @@
             });
         });
     </script>
-@stop
+@endsection
